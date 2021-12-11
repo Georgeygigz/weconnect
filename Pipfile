@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+pendulum = "*"
+django = "*"
+djangorestframework = "*"
+psycopg2-binary = "*"
+drf-yasg = "*"
+pyjwt = "*"
+coveralls = "*"
+codacy-coverage = "*"
+coverage = "*"
+django-rest-swagger = "*"
+whitenoise = "*"
+celery = "*"
+redis = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
