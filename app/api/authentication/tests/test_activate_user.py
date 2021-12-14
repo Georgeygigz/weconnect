@@ -10,6 +10,7 @@ class ActivateUserTest(TestBaseCase):
     Activate user test cases
     """
     @patch('app.api.authentication.views.send_mail_', Mock(return_value=True))
+    @patch('app.api.authentication.views.trigger_geolocation_info_enrichment', Mock(return_value=True))
     def test_activate_user_succeeds(self):
         """ Test for successful account verification """
         user = self.signup_user_two()

@@ -54,7 +54,6 @@ class RegistrationAPIView(generics.CreateAPIView):
             html_message=body,
             fail_silently=False,
         )
-
         # enrich user data
         trigger_geolocation_info_enrichment.delay(data['id'])
 
@@ -91,7 +90,7 @@ class VerifyAPIView(generics.RetrieveAPIView):
     renderer_classes = (RequestJSONRenderer,)
 
     @classmethod
-    def get(self, request, token):
+    def get(cls, request, token):
         """
         Overide the default get method
         """

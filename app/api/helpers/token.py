@@ -6,24 +6,6 @@ from rest_framework import exceptions
 from ..authentication.models import User
 from .serialization_errors import jwt_errors
 
-
-def generate_password_reset_token(email, id_):
-    """
-    generates token that expires in an hour
-    Args:
-        email (str): user email
-        id_ (str): user id
-    Return:
-        token (str): a token that expires in the specified time
-    """
-    time = datetime.datetime.utcnow() + datetime.timedelta(
-        hours=int(settings.RESET_TOKEN_EXP_TIME)
-    )
-    payload = {"email": email, "id": id_, "exp": time}
-    token = jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
-    return token.decode("utf-8")
-
-
 def get_token_data(token):
     """
     checks validity of a token

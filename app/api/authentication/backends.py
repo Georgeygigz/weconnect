@@ -8,7 +8,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
     """
 
     @classmethod
-    def authenticate(self, request):
+    def authenticate(cls, request):
         """
         This checks that the passed JWT token is valid and returns
         a user and his/her token on successful verification

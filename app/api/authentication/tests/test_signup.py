@@ -18,14 +18,11 @@ class RegistrationTest(TestBaseCase):
     """
     @patch('app.api.authentication.views.send_mail_', Mock(return_value=True))
     @patch('requests.get', Mock(return_value=mock_response))
+    @patch('app.api.authentication.views.trigger_geolocation_info_enrichment', Mock(return_value=True))
     def test_user_signup_succeed(self):
         """Test API can successfully register a new user"""
         response = self.client.post(
             self.signup_url, self.valid_user, format='json')
-        user = User.objects.get(email=self.valid_user['email'])
-        trigger_geolocation_info_enrichment.delay = Mock (
-            side_effect = trigger_geolocation_info_enrichment(user.id)
-        )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['message'], SIGNUP_SUCCESS_MESSAGE)
@@ -46,6 +43,7 @@ class RegistrationTest(TestBaseCase):
 
     @patch('app.api.authentication.views.send_mail_', Mock(return_value=True))
     @patch('requests.get', Mock(return_value=True))
+    @patch('app.api.authentication.views.trigger_geolocation_info_enrichment', Mock(return_value=True))
     def test_signup_existing_user(self):
         """Test register existing user"""
         response = self.signup_existing_user()
