@@ -1,6 +1,7 @@
 import requests
 from django.conf import settings
 from django.utils.timezone import datetime
+from tenacity import retry, wait_exponential
 
 
 from app import celery_app
@@ -19,6 +20,7 @@ class UserGeolocationInfo():
         response = requests.get(url)
         return response.json()
 
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10))
     def get_geolocation_info(self):
         """Method that gets users geologocal data based
         on the user signup ip
@@ -29,6 +31,7 @@ class UserGeolocationInfo():
         self.country_code = response['country_code']
         return response
 
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10))
     def get_current_day_holiday(self):
         """Method that gets current day holiday"""
         day = datetime.now().day

@@ -18,6 +18,10 @@ django-rest-swagger = "*"
 whitenoise = "*"
 celery = "*"
 redis = "*"
+tenacity = "*"
+gevent = "*"
+gunicorn = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
